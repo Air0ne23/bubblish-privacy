@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informativa sulla privacy — Bubblish</title>
+<!--
+  Pagina autosufficiente: nessun foglio di stile esterno, nessun font remoto,
+  nessuno script. Va bene cosi' com'e' su GitHub Pages senza tema Jekyll, e —
+  cosa non secondaria per un'informativa sulla privacy — non fa partire nessuna
+  richiesta verso terzi mentre la si legge.
+  La fonte di verita' resta docs/privacy.md: se cambia una, va cambiata l'altra.
+-->
+<style>
+  :root {
+    --sfondo: #ffffff; --testo: #1c2430; --tenue: #5b6675;
+    --bordo: #dfe4ea; --accento: #0f6fb5; --pannello: #f4f7fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sfondo: #12171f; --testo: #e6ebf2; --tenue: #9aa6b5;
+      --bordo: #2a3340; --accento: #6cb8ee; --pannello: #1a212b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2.2rem 1.2rem 4rem;
+    background: var(--sfondo); color: var(--testo);
+    font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.85rem; line-height: 1.2; margin: 0 0 .3rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .6rem; }
+  .meta { color: var(--tenue); font-size: .92rem; margin: 0 0 2rem; }
+  .meta a { color: var(--accento); }
+  .sunto {
+    background: var(--pannello); border: 1px solid var(--bordo);
+    border-left: 4px solid var(--accento);
+    border-radius: 8px; padding: 1rem 1.2rem; margin: 1.6rem 0 2rem;
+  }
+  .sunto p:first-child { margin-top: 0; font-weight: 600; }
+  .sunto p:last-child { margin-bottom: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border: 1px solid var(--bordo); vertical-align: top; }
+  th { background: var(--pannello); }
+  code { background: var(--pannello); padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--bordo);
+           color: var(--tenue); font-size: .9rem; }
+  a { color: var(--accento); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Informativa sulla privacy</h1>
+<p class="meta">
+  Applicazione <strong>Bubblish</strong> (<code>com.airone.bubblish</code>) ·
+  Titolare: Airone Games (Davide Martinelli) ·
+  <a href="mailto:martinellidavide72@gmail.com">martinellidavide72@gmail.com</a><br>
+  Ultimo aggiornamento: 24 agosto 2026
+</p>
+
+<div class="sunto">
+  <p>Bubblish non raccoglie, non trasmette e non condivide alcun dato personale.</p>
+  <p>Il gioco funziona interamente sul dispositivo. Chiede un solo permesso Android, <strong>VIBRATE</strong>, usato unicamente per il breve riscontro tattile di alcuni eventi di gioco (parola completata, penalit&agrave;, nuovo record); non d&agrave; accesso a nessun dato e si disattiva con l'interruttore dell'audio nelle opzioni. A parte quello,
+  non contiene pubblicità, non contiene acquisti, non usa strumenti di analisi del
+  comportamento e non comunica con alcun server dello sviluppatore — che non esiste.</p>
+</div>
+
+<h2>Cosa viene salvato, e dove</h2>
+<p>Il gioco scrive due file nella propria area privata sul dispositivo:</p>
+<table>
+  <tr><th>File</th><th>Contenuto</th></tr>
+  <tr>
+    <td><code>progress.cfg</code></td>
+    <td>livelli sbloccati, punteggi migliori, stelle, obiettivi di livello, risultati
+        della sfida del giorno, impostazioni di audio e tema</td>
+  </tr>
+  <tr>
+    <td><code>achievements.cfg</code></td>
+    <td>progressi degli obiettivi di carriera</td>
+  </tr>
+</table>
+<p>Sono <strong>dati di gioco</strong>, non dati personali: non contengono nome, indirizzo,
+posizione, contatti, identificativi pubblicitari né alcun altro dato che permetta di
+risalire a una persona. Restano nell'area privata dell'applicazione, dove nessun'altra
+app può leggerli, e vengono <strong>eliminati insieme all'applicazione</strong> quando la
+si disinstalla.</p>
+
+<h2>Backup automatico di Android</h2>
+<p>L'applicazione lascia attivo il <strong>Backup automatico di Android</strong>. Se il
+backup è attivo nelle impostazioni del telefono, i due file elencati sopra vengono
+copiati sullo spazio Google Drive <strong>del giocatore</strong>, così che cambiando
+telefono o reinstallando il gioco i progressi non vadano persi.</p>
+<p>Quel backup è gestito interamente da Google e dal sistema operativo:
+<strong>lo sviluppatore non vi ha accesso</strong>, non ne riceve copia e non ne viene
+informato. Si può disattivare dalle impostazioni di Android (Sistema → Backup) oppure
+dalle impostazioni del proprio account Google.</p>
+
+<h2>Funzioni che escono dall'applicazione</h2>
+<p>Due sole, entrambe avviate esplicitamente dal giocatore, e nessuna delle due invia
+niente a noi:</p>
+<ul>
+  <li><strong>Condividi</strong> (nel riepilogo della sfida del giorno) copia negli
+  <strong>appunti</strong> del telefono un testo con il punteggio della giornata e il
+  collegamento al gioco. Da lì è il giocatore a decidere se e dove incollarlo. Il gioco
+  non lo invia a nessuno;</li>
+  <li><strong>il pulsante del negozio</strong> nella schermata iniziale apre la scheda di
+  Bubblish su Google Play, usando l'applicazione predefinita del telefono. Da quel momento
+  in poi si applica l'informativa sulla privacy di Google.</li>
+</ul>
+
+<h2>Bambini</h2>
+<p>Il gioco non è rivolto specificamente ai bambini e non raccoglie dati da nessuno, di
+qualunque età.</p>
+
+<h2>Modifiche</h2>
+<p>Se una versione futura dovesse introdurre funzioni che comportano un trattamento di
+dati — per esempio una classifica online, notifiche o pubblicità — questa informativa
+verrà aggiornata <strong>prima</strong> del rilascio di quella versione, e la modifica
+sarà descritta qui con la relativa data.</p>
+
+<h2>Diritti dell'interessato</h2>
+<p>Non essendo raccolto alcun dato personale, non c'è nulla di cui chiedere accesso,
+rettifica o cancellazione. Per eliminare comunque tutti i dati di gioco è sufficiente
+disinstallare l'applicazione. Per qualunque domanda:
+<a href="mailto:martinellidavide72@gmail.com">martinellidavide72@gmail.com</a>.</p>
+
+<footer>Airone Games — Bubblish</footer>
+
+</main>
+</body>
+</html>
