@@ -57,18 +57,70 @@
   Applicazione <strong>Bubblish</strong> (<code>com.airone.bubblish</code>) ·
   Titolare: Airone Games (Davide Martinelli) ·
   <a href="mailto:airone23games@gmail.com">airone23games@gmail.com</a><br>
-  Ultimo aggiornamento: 24 agosto 2026
+  Ultimo aggiornamento: 21 settembre 2026
 </p>
 
 <div class="sunto">
-  <p>Bubblish non raccoglie, non trasmette e non condivide alcun dato personale.</p>
-  <p>Il gioco funziona interamente sul dispositivo. Chiede un solo permesso Android, <strong>VIBRATE</strong>, usato unicamente per il breve riscontro tattile di alcuni eventi di gioco (parola completata, penalit&agrave;, nuovo record); non d&agrave; accesso a nessun dato e si disattiva con l'interruttore dell'audio nelle opzioni. A parte quello,
-  non contiene pubblicità, non contiene acquisti, non usa strumenti di analisi del
-  comportamento e non comunica con alcun server dello sviluppatore — che non esiste.</p>
+  <p><strong>Lo sviluppatore di Bubblish non raccoglie, non trasmette e non condivide alcun dato personale.</strong> Le due librerie di Google che il gioco usa — Google Play Billing per gli acquisti e Google Mobile Ads (AdMob) per i video premianti — trattano i dati descritti più sotto secondo le norme sulla privacy di Google, non dello sviluppatore.</p>
+  <p>Il gioco gira sul dispositivo. Dal 20 settembre 2026 vende pacchetti di gemme tramite gli <strong>acquisti in app di Google Play</strong> (Google Play Billing): l'unico traffico di rete che il gioco genera per questo &egrave; quello della libreria di Google usata per un acquisto, e il gioco non vede mai un dato di pagamento — riceve da Google Play solo la conferma dell'acquisto, che conserva sul dispositivo per non accreditarlo due volte. Nessun acquisto &egrave; obbligatorio: livelli, stelle e regioni si passano giocando; le gemme comprano solo aiuti opzionali e l'estensione di fine round, e si guadagnano anche senza spendere (obiettivi, sfida del giorno, forzieri di regione).</p>
+  <p>Dallo stesso aggiornamento il gioco pu&ograve; anche mostrare <strong>video pubblicitari premianti</strong>, tramite <strong>Google AdMob</strong> — solo se il giocatore lo chiede espressamente (mai banner, mai interruzioni): vedi «Annunci» pi&ugrave; sotto. Dove la legge lo richiede, il consenso si chiede prima di mostrare qualunque annuncio.</p>
+  <p>A parte questi due casi, il gioco non usa strumenti di analisi del comportamento e non comunica con alcun server dello sviluppatore — che non esiste.</p>
 </div>
 
+<h2>Permessi Android</h2>
+<p>Il pacchetto dichiara <strong>nove permessi</strong> (misurati sul pacchetto pubblicato con <code>aapt2 dump permissions</code>):</p>
+<table>
+  <tr><th>Permesso</th><th>Chi lo richiede</th><th>A cosa serve</th></tr>
+  <tr>
+    <td><code>VIBRATE</code></td>
+    <td>il gioco</td>
+    <td>il breve riscontro tattile di alcuni eventi di gioco (parola completata, penalit&agrave;, nuovo record); si disattiva con l'interruttore dell'audio nelle opzioni</td>
+  </tr>
+  <tr>
+    <td><code>com.android.vending.BILLING</code></td>
+    <td>Google Play Billing</td>
+    <td>vendere i pacchetti di gemme del negozio</td>
+  </tr>
+  <tr>
+    <td><code>INTERNET</code></td>
+    <td>Google Play Billing e Google Mobile Ads (AdMob)</td>
+    <td>parlare con i server di Google durante un acquisto o per caricare un video pubblicitario</td>
+  </tr>
+  <tr>
+    <td><code>ACCESS_NETWORK_STATE</code></td>
+    <td>Google Play Billing e Google Mobile Ads (AdMob)</td>
+    <td>verificare la connessione prima di un acquisto o di un video pubblicitario</td>
+  </tr>
+  <tr>
+    <td><code>AD_ID</code> (<code>android.permission.AD_ID</code>)</td>
+    <td>Google Mobile Ads (AdMob)</td>
+    <td>leggere l'identificativo pubblicitario del dispositivo, che Google usa per scegliere e misurare gli annunci — vedi «Annunci» pi&ugrave; sotto</td>
+  </tr>
+  <tr>
+    <td><code>com.google.android.gms.permission.AD_ID</code></td>
+    <td>Google Mobile Ads (AdMob)</td>
+    <td>stessa funzione della riga precedente: la libreria di Google la dichiara due volte per compatibilit&agrave; fra versioni diverse di Android</td>
+  </tr>
+  <tr>
+    <td><code>READ_BASIC_PHONE_STATE</code></td>
+    <td>Google Mobile Ads (AdMob)</td>
+    <td>uso interno dell'SDK di Google per il funzionamento degli annunci; non d&agrave; al gioco accesso al numero di telefono, all'IMEI o a chiamate</td>
+  </tr>
+  <tr>
+    <td><code>WAKE_LOCK</code></td>
+    <td>Google Mobile Ads (AdMob)</td>
+    <td>mantiene attivo lo schermo mentre un video pubblicitario si carica, cos&igrave; non si interrompe se il dispositivo si addormenta</td>
+  </tr>
+  <tr>
+    <td><code>FOREGROUND_SERVICE</code></td>
+    <td>Google Mobile Ads (AdMob)</td>
+    <td>permette all'SDK di completare il caricamento di un annuncio anche se l'app passa un istante in secondo piano</td>
+  </tr>
+</table>
+<p>Nessuno di questi permessi d&agrave; al gioco accesso a contatti, posizione, foto, microfono o messaggi. L'unico dato identificativo che il pacchetto pu&ograve; leggere &egrave; l'<strong>identificativo pubblicitario del dispositivo</strong>, usato dall'SDK di Google per gli annunci video — mai da un server dello sviluppatore, che non esiste. Il gioco non ha un proprio server e non fa nessuna richiesta di rete propria: tutto il traffico &egrave; quello delle due librerie di Google (Billing e Mobile Ads), e solo mentre un acquisto o un annuncio sono in corso.</p>
+
 <h2>Cosa viene salvato, e dove</h2>
-<p>Il gioco scrive due file nella propria area privata sul dispositivo:</p>
+<p>Il gioco scrive cinque file nella propria area privata sul dispositivo:</p>
 <table>
   <tr><th>File</th><th>Contenuto</th></tr>
   <tr>
@@ -80,50 +132,128 @@
     <td><code>achievements.cfg</code></td>
     <td>progressi degli obiettivi di carriera</td>
   </tr>
+  <tr>
+    <td><code>statistiche.cfg</code></td>
+    <td>record personali di carriera (parola più lunga, parola da più punti, punti e
+        parole in un round, catena più lunga)</td>
+  </tr>
+  <tr>
+    <td><code>aiuti.cfg</code></td>
+    <td>saldo delle gemme, aiuti scelti in partita, e il registro degli acquisti
+        (identificativo dell'ordine e token dell'acquisto ricevuti da Google Play,
+        usati solo per non accreditare due volte lo stesso acquisto)</td>
+  </tr>
+  <tr>
+    <td><code>stile.cfg</code></td>
+    <td>i cosmetici posseduti e quelli indossati (scia, aspetto delle bolle, scoppio,
+        suono, meteo)</td>
+  </tr>
 </table>
 <p>Sono <strong>dati di gioco</strong>, non dati personali: non contengono nome, indirizzo,
-posizione, contatti, identificativi pubblicitari né alcun altro dato che permetta di
-risalire a una persona. Restano nell'area privata dell'applicazione, dove nessun'altra
-app può leggerli, e vengono <strong>eliminati insieme all'applicazione</strong> quando la
-si disinstalla.</p>
+posizione, contatti, identificativi pubblicitari n&eacute; alcun altro dato che permetta di
+risalire a una persona. L'identificativo dell'ordine e il token dell'acquisto sono legati
+all'acquisto, non a chi l'ha fatto, e non identificano nessuno. Restano nell'area privata
+dell'applicazione, dove nessun'altra app pu&ograve; leggerli, e vengono <strong>eliminati
+insieme all'applicazione</strong> quando la si disinstalla.</p>
+<p>L'SDK di Google Mobile Ads mantiene una propria cache tecnica per gli annunci (video
+scaricati, stato del consenso), separata dai file qui sopra: il gioco non vi accede e non
+la legge.</p>
+
+<h2>Acquisti in app</h2>
+<p>Il negozio vende pacchetti di gemme (la valuta di gioco) tramite gli <strong>acquisti in
+app di Google Play</strong>. Compare solo sui dispositivi dove Google Play &egrave;
+disponibile; dove non lo &egrave;, il tasto del negozio non compare.</p>
+<ul>
+  <li><strong>Chi tratta il pagamento</strong>: Google Play, secondo la propria informativa
+  sulla privacy. L'account Google e il metodo di pagamento restano fra il giocatore e
+  Google — il gioco non li vede mai e non li richiede;</li>
+  <li><strong>Cosa riceve il gioco</strong>: solo la conferma dell'acquisto (identificativo
+  dell'ordine e token dell'acquisto, vedi la tabella sopra), per accreditare le gemme una
+  volta sola;</li>
+  <li><strong>Nessun acquisto &egrave; obbligatorio</strong>: il gioco si finisce, tutte le
+  regioni si sbloccano e tutte le stelle si prendono giocando soltanto. Le gemme comprano
+  aiuti opzionali durante la partita e l'estensione "+10 s" a fine round, e si guadagnano
+  anche gratis completando obiettivi, giocando la sfida del giorno o raggiungendo il 100%
+  delle stelle di una regione;</li>
+  <li>I pacchetti in vendita sono <strong>consumabili</strong>: ogni acquisto &egrave; a
+  s&eacute;, nessuno d&agrave; diritti permanenti n&eacute; &egrave; un abbonamento.</li>
+</ul>
+
+<h2>Annunci</h2>
+<p>Dal 20 settembre 2026 il gioco pu&ograve; mostrare <strong>video pubblicitari
+premianti</strong>, tramite <strong>Google AdMob</strong> (SDK Google Mobile Ads). Non ci
+sono banner n&eacute; annunci a schermo intero, e un video non compare mai da solo: parte
+<strong>solo se il giocatore lo chiede</strong>, in due punti soltanto:</p>
+<ul>
+  <li>a fine livello, vicino a una stella, il tasto <strong>"+10 s &middot; guarda un
+  video"</strong> riprende il round per dieci secondi dopo aver visto il video
+  (l'alternativa resta pagare 30 gemme);</li>
+  <li>nel pannello "scegli un aiuto", una riga <strong>"Guarda un video &middot;
+  +12"</strong> d&agrave; 12 gemme, una volta al giorno.</li>
+</ul>
+<p>Il gioco resta interamente giocabile senza guardare mai un video: sono sempre
+un'alternativa a qualcosa che si pu&ograve; anche fare o guadagnare giocando.</p>
+<p><strong>Identificativo pubblicitario.</strong> Per scegliere e misurare gli annunci,
+l'SDK di Google Mobile Ads usa l'<strong>identificativo pubblicitario del dispositivo</strong>
+(l'AD_ID di Android, vedi la tabella dei permessi). Il gioco non riceve questo
+identificativo e non lo salva: resta fra il dispositivo e Google, che lo tratta secondo le
+proprie norme sulla privacy (<a href="https://policies.google.com/privacy">policies.google.com/privacy</a>)
+e la pagina dedicata agli annunci di AdMob
+(<a href="https://support.google.com/admob/answer/6128543">support.google.com/admob/answer/6128543</a>).</p>
+<p><strong>Consenso.</strong> Nell'<strong>Area Economica Europea e nel Regno Unito</strong>,
+al primo avvio compare il modulo di consenso di Google (<strong>UMP — User Messaging
+Platform</strong>), che chiede se si accetta di ricevere annunci basati sui propri
+interessi. <strong>Senza consenso non viene mostrato nessun annuncio</strong>, e il gioco
+resta comunque interamente giocabile: i due tasti dei video semplicemente non compaiono. La
+scelta si pu&ograve; rivedere in qualsiasi momento dal pannello dell'ingranaggio nella home,
+alla voce <strong>"Privacy degli annunci"</strong> (visibile solo dove il consenso &egrave;
+richiesto).</p>
+<p><strong>Cosa riceve il gioco da un annuncio</strong>: solo l'informazione che il video
+&egrave; stato guardato fino alla fine, che &egrave; quanto serve per sbloccare la
+ricompensa. Nessun altro dato personale passa dall'SDK di Google al gioco, e il gioco non
+ha un proprio server a cui inviare niente.</p>
 
 <h2>Backup automatico di Android</h2>
 <p>L'applicazione lascia attivo il <strong>Backup automatico di Android</strong>. Se il
-backup è attivo nelle impostazioni del telefono, i due file elencati sopra vengono
+backup è attivo nelle impostazioni del telefono, i cinque file elencati sopra vengono
 copiati sullo spazio Google Drive <strong>del giocatore</strong>, così che cambiando
-telefono o reinstallando il gioco i progressi non vadano persi.</p>
+telefono o reinstallando il gioco i progressi (gemme comprese) non vadano persi.</p>
 <p>Quel backup è gestito interamente da Google e dal sistema operativo:
 <strong>lo sviluppatore non vi ha accesso</strong>, non ne riceve copia e non ne viene
 informato. Si può disattivare dalle impostazioni di Android (Sistema → Backup) oppure
 dalle impostazioni del proprio account Google.</p>
 
 <h2>Funzioni che escono dall'applicazione</h2>
-<p>Due sole, entrambe avviate esplicitamente dal giocatore, e nessuna delle due invia
-niente a noi:</p>
-<ul>
-  <li><strong>Condividi</strong> (nel riepilogo della sfida del giorno) copia negli
-  <strong>appunti</strong> del telefono un testo con il punteggio della giornata e il
-  collegamento al gioco. Da lì è il giocatore a decidere se e dove incollarlo. Il gioco
-  non lo invia a nessuno;</li>
-  <li><strong>il pulsante del negozio</strong> nella schermata iniziale apre la scheda di
-  Bubblish su Google Play, usando l'applicazione predefinita del telefono. Da quel momento
-  in poi si applica l'informativa sulla privacy di Google.</li>
-</ul>
+<p>Oltre agli acquisti in app e agli annunci descritti sopra, l'unica funzione che porta
+qualcosa fuori dall'app &egrave; <strong>Condividi</strong> (nel riepilogo della sfida del
+giorno): apre il foglio di condivisione nativo di Android con un testo che riporta il
+punteggio della giornata e il collegamento al gioco — da l&igrave; &egrave; il giocatore a
+decidere se e dove condividerlo. Se il foglio nativo non &egrave; disponibile, il testo
+viene copiato negli <strong>appunti</strong> del telefono. In nessuno di questi casi il
+gioco invia niente a noi.</p>
 
 <h2>Bambini</h2>
-<p>Il gioco non è rivolto specificamente ai bambini e non raccoglie dati da nessuno, di
-qualunque età.</p>
+<p>Il gioco non è rivolto specificamente ai bambini e non raccoglie dati personali da
+nessuno, di qualunque età; gli annunci mostrati non sono pensati per un pubblico
+infantile.</p>
 
 <h2>Modifiche</h2>
-<p>Se una versione futura dovesse introdurre funzioni che comportano un trattamento di
-dati — per esempio una classifica online, notifiche o pubblicità — questa informativa
-verrà aggiornata <strong>prima</strong> del rilascio di quella versione, e la modifica
-sarà descritta qui con la relativa data.</p>
+<p>Questa informativa è stata aggiornata il 20 settembre 2026 per descrivere gli acquisti
+in app e gli annunci video premianti, entrambi introdotti in questa versione. È stata
+riletta il 21 settembre 2026 per precisare <strong>chi</strong> tratta cosa: lo
+sviluppatore non raccoglie nulla, le due librerie di Google trattano solo quanto
+descritto nei paragrafi sopra. Lo stesso 21 settembre 2026 &egrave; stato aggiunto il
+quinto file salvato sul dispositivo, <code>stile.cfg</code>, che arriva col guardaroba dei
+cosmetici: come gli altri contiene dati di gioco e nessun dato personale.
+Se una versione futura dovesse introdurre altre funzioni che comportano un trattamento di dati —
+per esempio una classifica online o le notifiche — l'informativa verrà aggiornata
+<strong>prima</strong> del rilascio di quella versione, e la modifica sarà descritta qui
+con la relativa data.</p>
 
 <h2>Diritti dell'interessato</h2>
 <p>Non essendo raccolto alcun dato personale, non c'è nulla di cui chiedere accesso,
-rettifica o cancellazione. Per eliminare comunque tutti i dati di gioco è sufficiente
-disinstallare l'applicazione. Per qualunque domanda:
+rettifica o cancellazione. Per eliminare comunque tutti i dati di gioco (gemme comprese)
+è sufficiente disinstallare l'applicazione. Per qualunque domanda:
 <a href="mailto:airone23games@gmail.com">airone23games@gmail.com</a>.</p>
 
 <footer>Airone Games — Bubblish</footer>
