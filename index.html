@@ -57,18 +57,19 @@
   Applicazione <strong>Bubblish</strong> (<code>com.airone.bubblish</code>) ·
   Titolare: Airone Games (Davide Martinelli) ·
   <a href="mailto:airone23games@gmail.com">airone23games@gmail.com</a><br>
-  Ultimo aggiornamento: 12 ottobre 2026
+  Ultimo aggiornamento: 25 ottobre 2026
 </p>
 
 <div class="sunto">
-  <p><strong>Lo sviluppatore di Bubblish non raccoglie, non trasmette e non condivide alcun dato personale.</strong> Le due librerie di Google che il gioco usa — Google Play Billing per gli acquisti e Google Mobile Ads (AdMob) per i video premianti — trattano i dati descritti più sotto secondo le norme sulla privacy di Google, non dello sviluppatore.</p>
+  <p><strong>Lo sviluppatore di Bubblish non raccoglie, non trasmette e non condivide alcun dato personale tramite il gioco.</strong> (Un'email che il giocatore sceglie di scriverci arriva come qualunque messaggio: vedi «Funzioni che escono dall'applicazione».) Le due librerie di Google che il gioco usa — Google Play Billing per gli acquisti e Google Mobile Ads (AdMob) per i video premianti — trattano i dati descritti più sotto secondo le norme sulla privacy di Google, non dello sviluppatore.</p>
   <p>Il gioco gira sul dispositivo. Dal 20 settembre 2026 vende pacchetti di gemme tramite gli <strong>acquisti in app di Google Play</strong> (Google Play Billing): l'unico traffico di rete che il gioco genera per questo &egrave; quello della libreria di Google usata per un acquisto, e il gioco non vede mai un dato di pagamento — riceve da Google Play solo la conferma dell'acquisto, che conserva sul dispositivo per non accreditarlo due volte. Nessun acquisto &egrave; obbligatorio: livelli, stelle e regioni si passano giocando; le gemme comprano solo aiuti opzionali e l'estensione di fine round, e si guadagnano anche senza spendere (obiettivi, sfida del giorno, forzieri di regione).</p>
   <p>Dallo stesso aggiornamento il gioco pu&ograve; anche mostrare <strong>video pubblicitari premianti</strong>, tramite <strong>Google AdMob</strong> — solo se il giocatore lo chiede espressamente (mai banner, mai interruzioni): vedi «Annunci» pi&ugrave; sotto. Dove la legge lo richiede, il consenso si chiede prima di mostrare qualunque annuncio.</p>
+  <p>Dal 24 ottobre 2026 il gioco pu&ograve; anche mandare <strong>promemoria</strong> (notifiche locali) per la sfida del giorno — solo se il giocatore li accende, e senza nessun server: li programma il telefono stesso. Vedi «Promemoria» pi&ugrave; sotto.</p>
   <p>A parte questi due casi, il gioco non usa strumenti di analisi del comportamento e non comunica con alcun server dello sviluppatore — che non esiste.</p>
 </div>
 
 <h2>Permessi Android</h2>
-<p>Il pacchetto dichiara <strong>nove permessi</strong> (misurati sul pacchetto pubblicato con <code>aapt2 dump permissions</code>):</p>
+<p>Il pacchetto dichiara <strong>undici permessi</strong> (misurati sul pacchetto con <code>aapt2 dump permissions</code>):</p>
 <table>
   <tr><th>Permesso</th><th>Chi lo richiede</th><th>A cosa serve</th></tr>
   <tr>
@@ -108,13 +109,23 @@
   </tr>
   <tr>
     <td><code>WAKE_LOCK</code></td>
-    <td>Google Mobile Ads (AdMob)</td>
-    <td>mantiene attivo lo schermo mentre un video pubblicitario si carica, cos&igrave; non si interrompe se il dispositivo si addormenta</td>
+    <td>Google Mobile Ads (AdMob) e i promemoria</td>
+    <td>mantiene attivo lo schermo mentre un video pubblicitario si carica, cos&igrave; non si interrompe se il dispositivo si addormenta; e permette a un promemoria programmato di comparire anche a telefono in standby</td>
   </tr>
   <tr>
     <td><code>FOREGROUND_SERVICE</code></td>
     <td>Google Mobile Ads (AdMob)</td>
     <td>permette all'SDK di completare il caricamento di un annuncio anche se l'app passa un istante in secondo piano</td>
+  </tr>
+  <tr>
+    <td><code>POST_NOTIFICATIONS</code></td>
+    <td>il gioco (promemoria)</td>
+    <td>mostrare i promemoria della sfida del giorno. Da Android 13 il telefono lo chiede al giocatore, e il gioco lo fa chiedere <strong>solo</strong> dopo che il giocatore ha scelto di accendere i promemoria; se lo nega, i promemoria restano spenti</td>
+  </tr>
+  <tr>
+    <td><code>RECEIVE_BOOT_COMPLETED</code></td>
+    <td>il gioco (promemoria)</td>
+    <td>riprogrammare i promemoria gi&agrave; previsti dopo un riavvio del telefono, che altrimenti li cancellerebbe</td>
   </tr>
 </table>
 <p>Nessuno di questi permessi d&agrave; al gioco accesso a contatti, posizione, foto, microfono o messaggi. L'unico dato identificativo che il pacchetto pu&ograve; leggere &egrave; l'<strong>identificativo pubblicitario del dispositivo</strong>, usato dall'SDK di Google per gli annunci video — mai da un server dello sviluppatore, che non esiste. Il gioco non ha un proprio server e non fa nessuna richiesta di rete propria: tutto il traffico &egrave; quello delle due librerie di Google (Billing e Mobile Ads), e solo mentre un acquisto o un annuncio sono in corso.</p>
@@ -126,7 +137,10 @@
   <tr>
     <td><code>progress.cfg</code></td>
     <td>livelli sbloccati, punteggi migliori, stelle, obiettivi di livello, risultati
-        della sfida del giorno, impostazioni audio</td>
+        della sfida del giorno, impostazioni audio e dei promemoria; <strong>solo a
+        promemoria accesi</strong>, anche l'ora del giorno in cui il gioco &egrave; stato
+        usato negli ultimi sette giorni e quando cadono i promemoria programmati (servono a
+        non mandarli mentre di solito si gioca, e mai pi&ugrave; di uno al giorno)</td>
   </tr>
   <tr>
     <td><code>achievements.cfg</code></td>
@@ -149,6 +163,12 @@
         suono, meteo)</td>
   </tr>
 </table>
+<p>Accanto a ognuno il gioco tiene una <strong>copia di sicurezza</strong> dello stesso
+contenuto (<code>.bak</code>, il salvataggio precedente) e, solo per l'attimo di una
+scrittura, un file temporaneo (<code>.tmp</code>): servono a non perdere i progressi se il
+telefono si spegne mentre il gioco salva. Se un file risultasse illeggibile, il gioco
+riparte dalla copia e conserva quello danneggiato (<code>.rotto</code>) senza cancellarlo.
+Sono gli stessi dati, non dati in pi&ugrave;.</p>
 <p>Sono <strong>dati di gioco</strong>, non dati personali: non contengono nome, indirizzo,
 posizione, contatti, identificativi pubblicitari n&eacute; alcun altro dato che permetta di
 risalire a una persona. L'identificativo dell'ordine e il token dell'acquisto sono legati
@@ -157,7 +177,30 @@ dell'applicazione, dove nessun'altra app pu&ograve; leggerli, e vengono <strong>
 insieme all'applicazione</strong> quando la si disinstalla.</p>
 <p>L'SDK di Google Mobile Ads mantiene una propria cache tecnica per gli annunci (video
 scaricati, stato del consenso), separata dai file qui sopra: il gioco non vi accede e non
-la legge.</p>
+la legge. Allo stesso modo, a promemoria accesi, il componente che li programma conserva
+nelle preferenze private dell'app i promemoria in attesa (testo e ora), per poterli
+riprogrammare dopo un riavvio.</p>
+
+<h2>Promemoria</h2>
+<p>Il gioco pu&ograve; ricordare la <strong>sfida del giorno</strong> con una notifica sul
+telefono. Sono <strong>spenti finch&eacute; il giocatore non li accende</strong>: il gioco lo
+chiede una volta sola, alla fine della prima sfida del giorno completata, e l'interruttore
+resta nel pannello delle opzioni («Promemoria della sfida»). Si spengono da l&igrave;
+oppure dalle impostazioni di Android.</p>
+<ul>
+  <li>Sono <strong>notifiche locali</strong>: le programma il telefono stesso. Nessun server
+  le invia, nessun servizio di notifiche push &egrave; coinvolto, e niente esce dal
+  dispositivo per farle funzionare;</li>
+  <li>Arrivano <strong>solo a chi non torna</strong>: si riprogrammano ogni volta che si apre
+  o si chiude il gioco, e cadono dopo l'ora in cui di solito si gioca, fra le 10 e le 22. Al
+  massimo <strong>una al giorno</strong>, e a chi smette ne arrivano quattro in tutto, sempre
+  pi&ugrave; rade (dopo 1, 3, 7 e 14 giorni), poi pi&ugrave; niente. L'unica eccezione
+  &egrave; il giorno in cui la serie della sfida finirebbe a mezzanotte senza essere stata
+  giocata: un solo avviso, la sera;</li>
+  <li>Dicono fatti di gioco: la serie di giorni della sfida quando &egrave; davvero in
+  pericolo, quante stelle mancano a una regione, quante gemme vale la prossima casella del
+  calendario.</li>
+</ul>
 
 <h2>Acquisti in app</h2>
 <p>Il negozio vende pacchetti di gemme (la valuta di gioco) tramite gli <strong>acquisti in
@@ -215,8 +258,8 @@ ha un proprio server a cui inviare niente.</p>
 
 <h2>Backup automatico di Android</h2>
 <p>L'applicazione lascia attivo il <strong>Backup automatico di Android</strong>. Se il
-backup è attivo nelle impostazioni del telefono, i cinque file elencati sopra vengono
-copiati sullo spazio Google Drive <strong>del giocatore</strong>, così che cambiando
+backup è attivo nelle impostazioni del telefono, i file elencati sopra con le loro copie
+(e i promemoria in attesa) vengono copiati sullo spazio Google Drive <strong>del giocatore</strong>, così che cambiando
 telefono o reinstallando il gioco i progressi (gemme comprese) non vadano persi.</p>
 <p>Quel backup è gestito interamente da Google e dal sistema operativo:
 <strong>lo sviluppatore non vi ha accesso</strong>, non ne riceve copia e non ne viene
@@ -231,6 +274,12 @@ punteggio della giornata e il collegamento al gioco — da l&igrave; &egrave; il
 decidere se e dove condividerlo. Se il foglio nativo non &egrave; disponibile, il testo
 viene copiato negli <strong>appunti</strong> del telefono. In nessuno di questi casi il
 gioco invia niente a noi.</p>
+<p>Nelle opzioni, alla voce <strong>Informazioni</strong>, si pu&ograve; aprire questa
+informativa nel browser e scrivere un'email allo sviluppatore: le aprono il browser e il
+programma di posta del telefono, non il gioco. L'email parte solo se il giocatore la invia,
+e contiene quello che ci scrive (con la versione del gioco gi&agrave; nell'oggetto); la
+riceviamo come qualunque messaggio, con l'indirizzo da cui parte, e la usiamo solo per
+rispondere.</p>
 
 <h2>Bambini</h2>
 <p>Il gioco non è rivolto specificamente ai bambini e non raccoglie dati personali da
@@ -238,6 +287,15 @@ nessuno, di qualunque età; gli annunci mostrati non sono pensati per un pubblic
 infantile.</p>
 
 <h2>Modifiche</h2>
+<p>Il 25 ottobre 2026 sono state aggiunte le <strong>copie di sicurezza</strong> dei file di
+gioco (stessi dati, per non perdere i progressi a uno spegnimento durante il salvataggio) e
+i collegamenti della voce <strong>Informazioni</strong> (questa informativa e l'email allo
+sviluppatore). Nessun dato in pi&ugrave; esce dal telefono.</p>
+<p>Il 24 ottobre 2026 &egrave; stata aggiornata per descrivere i <strong>promemoria</strong>
+della sfida del giorno, introdotti in questa versione: due permessi in pi&ugrave;
+(<code>POST_NOTIFICATIONS</code>, <code>RECEIVE_BOOT_COMPLETED</code>), e — solo a
+promemoria accesi — gli orari d'uso e i promemoria programmati conservati sul dispositivo.
+Nessun dato in pi&ugrave; esce dal telefono.</p>
 <p>Questa informativa è stata aggiornata il 20 settembre 2026 per descrivere gli acquisti
 in app e gli annunci video premianti, entrambi introdotti in questa versione. È stata
 riletta il 21 settembre 2026 per precisare <strong>chi</strong> tratta cosa: lo
@@ -246,14 +304,16 @@ descritto nei paragrafi sopra. Lo stesso 21 settembre 2026 &egrave; stato aggiun
 quinto file salvato sul dispositivo, <code>stile.cfg</code>, che arriva col guardaroba dei
 cosmetici: come gli altri contiene dati di gioco e nessun dato personale.
 Se una versione futura dovesse introdurre altre funzioni che comportano un trattamento di dati —
-per esempio una classifica online o le notifiche — l'informativa verrà aggiornata
+per esempio una classifica online — l'informativa verrà aggiornata
 <strong>prima</strong> del rilascio di quella versione, e la modifica sarà descritta qui
 con la relativa data.</p>
 
 <h2>Diritti dell'interessato</h2>
-<p>Non essendo raccolto alcun dato personale, non c'è nulla di cui chiedere accesso,
-rettifica o cancellazione. Per eliminare comunque tutti i dati di gioco (gemme comprese)
-è sufficiente disinstallare l'applicazione. Per qualunque domanda:
+<p>Il gioco non raccoglie dati personali, quindi da lì non c'è nulla di cui chiedere
+accesso, rettifica o cancellazione: per eliminare tutti i dati di gioco (gemme comprese)
+è sufficiente disinstallare l'applicazione. Se ci hai scritto un'email, puoi chiedere in
+qualunque momento di vederla, correggerla o cancellarla scrivendo allo stesso indirizzo.
+Per qualunque domanda:
 <a href="mailto:airone23games@gmail.com">airone23games@gmail.com</a>.</p>
 
 <footer>Airone Games — Bubblish</footer>
