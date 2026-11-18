@@ -57,7 +57,7 @@
   Applicazione <strong>Bubblish</strong> (<code>com.airone.bubblish</code>) ·
   Titolare: Airone Games (Davide Martinelli) ·
   <a href="mailto:airone23games@gmail.com">airone23games@gmail.com</a><br>
-  Ultimo aggiornamento: 25 ottobre 2026 ·
+  Ultimo aggiornamento: 19 novembre 2026 ·
   <a href="termini.html">Termini di servizio</a>
 </p>
 
@@ -132,7 +132,7 @@
 <p>Nessuno di questi permessi d&agrave; al gioco accesso a contatti, posizione, foto, microfono o messaggi. L'unico dato identificativo che il pacchetto pu&ograve; leggere &egrave; l'<strong>identificativo pubblicitario del dispositivo</strong>, usato dall'SDK di Google per gli annunci video — mai da un server dello sviluppatore, che non esiste. Il gioco non ha un proprio server e non fa nessuna richiesta di rete propria: tutto il traffico &egrave; quello delle due librerie di Google (Billing e Mobile Ads), e solo mentre un acquisto o un annuncio sono in corso.</p>
 
 <h2>Cosa viene salvato, e dove</h2>
-<p>Il gioco scrive cinque file nella propria area privata sul dispositivo:</p>
+<p>Il gioco scrive cinque file di salvataggio nella propria area privata sul dispositivo (pi&ugrave; l'immagine della condivisione, vedi «Funzioni che escono dall'applicazione»):</p>
 <table>
   <tr><th>File</th><th>Contenuto</th></tr>
   <tr>
@@ -270,9 +270,12 @@ dalle impostazioni del proprio account Google.</p>
 <h2>Funzioni che escono dall'applicazione</h2>
 <p>Oltre agli acquisti in app e agli annunci descritti sopra, l'unica funzione che porta
 qualcosa fuori dall'app &egrave; <strong>Condividi</strong> (nel riepilogo della sfida del
-giorno): apre il foglio di condivisione nativo di Android con un testo che riporta il
-punteggio della giornata e il collegamento al gioco — da l&igrave; &egrave; il giocatore a
-decidere se e dove condividerlo. Se il foglio nativo non &egrave; disponibile, il testo
+giorno): apre il foglio di condivisione nativo di Android con un'immagine e un testo che
+riportano il punteggio della giornata (con la data e la serie di giorni) e il collegamento
+al gioco — da l&igrave; &egrave; il giocatore a decidere se e dove condividerlo. L'immagine
+viene preparata in un file nell'area privata del gioco
+(<code>condivisione/sfida_del_giorno.png</code>), riscritto a ogni condivisione, e passata
+solo all'app che il giocatore sceglie. Se il foglio nativo non &egrave; disponibile, il testo
 viene copiato negli <strong>appunti</strong> del telefono. In nessuno di questi casi il
 gioco invia niente a noi.</p>
 <p>Nelle opzioni, alla voce <strong>Informazioni</strong>, si pu&ograve; aprire questa
